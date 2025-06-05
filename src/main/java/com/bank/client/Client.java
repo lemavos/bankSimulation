@@ -3,6 +3,7 @@ package com.bank.client;
 import java.math.BigDecimal;
 
 import com.bank.lib.Utils;
+import com.bank.lib.EmailSender;
 
 public class Client {
     private String id;
@@ -54,7 +55,7 @@ public class Client {
 
         Client client = new Client(name, email, phone);
         client.validateCode = ValidationCodeGen.generateCode();
-        System.out.println(client.validateCode); // remove after tests
+        EmailSender.sendValEmail(client.email, client.validateCode);
 
         boolean activated = client.activateClient();
         if (!activated) {
@@ -76,7 +77,7 @@ public class Client {
         System.out.println("\nClient created with ID: " + this.id);
     }
 
-    public boolean activateClient() {
+    private boolean activateClient() {
         System.out.print("Insert validation code: ");
         String codeInsert = Utils.input();
 
