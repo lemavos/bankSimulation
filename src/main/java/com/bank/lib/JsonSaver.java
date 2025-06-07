@@ -26,7 +26,7 @@ public class JsonSaver {
             }
         } catch (IOException e) {
             // Se não conseguir ler (arquivo não existe), começa com mapa vazio
-            System.out.println("Arquivo não encontrado, será criado um novo.");
+            System.out.println("JSON not found or empty, starting with a new map.");
         }
 
         // 2. Adiciona os novos clientes ao mapa
@@ -35,9 +35,9 @@ public class JsonSaver {
         // 3. Escreve o JSON atualizado no arquivo
         try (FileWriter writer = new FileWriter(filePath)) {
             gson.toJson(allClients, writer);
-            System.out.println("Clients adicionados ao JSON com sucesso.");
+            System.out.println("Clients saved successfully");
         } catch (IOException e) {
-            System.out.println("Erro ao salvar clients: " + e.getMessage());
+            System.out.println("[!] Error: " + e.getMessage());
         }
     }
 }

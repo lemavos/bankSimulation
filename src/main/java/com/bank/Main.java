@@ -1,25 +1,25 @@
 package com.bank;
 
 import com.bank.client.Client;
+import com.bank.client.ClientDB;
 import com.bank.lib.Utils;
-import com.bank.lib.JsonSaver;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
         Utils.clearTerminal();
 
-        // Cria o cliente com interface de texto
+        // Criar o cliente via interface
         Client client = Client.createClientUi();
+        if (client == null) {
+            System.out.println("[!] Cliente inválido. Encerrando.");
+            return;
+        }
 
-        // Mapeia os clientes usando o ID como chave
-        Map<String, Client> clients = new HashMap<>();
-        clients.put(client.getId(), client);
+        // Criar DB e tabela
+        ClientDB db = new ClientDB();
 
-        // Salva em JSON
-        JsonSaver.saveClientsToJson(clients, "clients.json");
+        // Salvar o cliente no banco SQLite
+        db.insertOrUpdateClient(client);
+
     }
 }
-
